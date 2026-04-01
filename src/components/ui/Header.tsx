@@ -24,7 +24,7 @@ function Header() {
         type="button"
         onClick={handleClick}
         ref={element as React.RefObject<HTMLButtonElement>}
-        className="cursor-pointer relative p-1 flex justify-evenly items-center gap-2 rounded-2xl border-2 border-primary-neutral"
+        className="cursor-pointer relative p-1 flex justify-evenly items-center gap-2 rounded-2xl border-2 border-primary-neutral hover:border-secondary transition-all duration-150 ease-in"
       >
         <span
           className={`absolute rounded-full bg-primary ${isDark ? '-translate-x-1/2' : 'translate-x-1/2'} transform transition-all duration-300`}

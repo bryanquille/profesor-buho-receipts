@@ -10,7 +10,9 @@ function MainLayout({ children }: MainLayoutPropsTypes) {
   return (
     <div className="w-full min-h-screen flex flex-col items-center bg-primary-neutral dark:bg-zinc-900">
       <Header />
-      {children}
+      <main>
+        {children}
+      </main>
       <Footer />
     </div>
   )
