@@ -1,7 +1,11 @@
+import MainLayout from "./layout/MainLayout"
+
 function App() {
   return (
     <>
-      <h1>Profesor Búho Recibos App</h1>
+      <MainLayout>
+        <p>Aqui va el contenido principal</p>
+      </MainLayout>
     </>
   )
 }
