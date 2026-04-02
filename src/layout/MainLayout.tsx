@@ -8,7 +8,7 @@ type MainLayoutPropsTypes = {
 
 function MainLayout({ children }: MainLayoutPropsTypes) {
   return (
-    <div className="w-full min-h-screen flex flex-col items-center bg-primary-neutral dark:bg-zinc-900">
+    <div className="w-full min-h-screen flex flex-col items-center gap-4 bg-primary-neutral dark:bg-zinc-900">
       <Header />
       <main>
         {children}

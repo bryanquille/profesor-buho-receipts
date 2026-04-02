@@ -1,10 +1,11 @@
+import ReceiptForm from "./components/receipt/ReceiptForm"
 import MainLayout from "./layout/MainLayout"
 
 function App() {
   return (
     <>
       <MainLayout>
-        <p>Aqui va el contenido principal</p>
+        <ReceiptForm />
       </MainLayout>
     </>
   )

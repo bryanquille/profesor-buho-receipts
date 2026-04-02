@@ -15,3 +15,7 @@
 body {
   @apply font-google-sans text-content dark:text-primary-neutral;
 }
+
+input, textarea {
+  @apply w-full p-2 border-2 rounded-sm border-zinc-950;
+}
