@@ -16,6 +16,6 @@ body {
   @apply font-google-sans text-content dark:text-primary-neutral;
 }
 
-input, textarea {
-  @apply w-full p-2 border-2 rounded-sm border-zinc-950;
+input, select, textarea {
+  @apply w-full p-2 border-2 rounded-sm border-zinc-950 focus-visible:outline-indigo-600 dark:border-gray-300;
 }
