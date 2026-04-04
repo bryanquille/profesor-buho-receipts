@@ -1,13 +1,28 @@
 import { z } from 'zod';
 
+// Define the available modality options as a tuple and create a type from it
 const modalityOptions = ["online", "in-person", "hybrid"] as const
-
 export type ModalityOptionsTypes = (typeof modalityOptions)[number]
-
-export const mappedModalityOptions: {[key in ModalityOptionsTypes]: string} = {
+export const mappedModalityOptions: { [key in ModalityOptionsTypes]: string } = {
   "online": "Virtual",
   "in-person": "Presencial",
   "hybrid": "Híbrida"
+}
+
+// Default values for the receipt form, matching the structure of ReceiptData
+export const RECEIPT_DEFAULT_VALUES: ReceiptData = {
+  customerName: '',
+  studentName: '',
+  teacherName: '',
+  subjectOrService: '',
+  modality: 'online' as const,
+  pricePerHour: 0,
+  items: [{
+    dateOfClasses: '',
+    hoursOfClasses: 0,
+    subtotal: 0
+  }],
+  notesOrObservations: ''
 }
 
 // Sub-schema for individual receipt items (classes or sessions)
