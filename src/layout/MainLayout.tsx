@@ -10,7 +10,7 @@ function MainLayout({ children }: MainLayoutPropsTypes) {
   return (
     <div className="w-full min-h-screen flex flex-col items-center gap-4 bg-primary-neutral dark:bg-zinc-900">
       <Header />
-      <main>
+      <main className="flex flex-col justify-center items-center gap-4">
         {children}
       </main>
       <Footer />

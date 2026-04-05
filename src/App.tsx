@@ -1,11 +1,11 @@
-import ReceiptForm from "./components/receipt/ReceiptForm"
+import Receipt from "./components/receipt/Receipt"
 import MainLayout from "./layout/MainLayout"
 
 function App() {
   return (
     <>
       <MainLayout>
-        <ReceiptForm />
+        <Receipt />
       </MainLayout>
     </>
   )
