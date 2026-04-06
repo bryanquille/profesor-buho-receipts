@@ -1,102 +1,109 @@
 import { useFormContext } from "react-hook-form"
 import { mappedModalityOptions, type ReceiptData } from "../../lib/schemas"
 import logo from "../../assets/images/logo/pb-icon.png"
+import { getCurrentDate } from "../../lib/utils"
+import ReceiptInfo from "./ReceiptInfo"
+import ReceiptServiceDetails from "./ReceiptServiceDetails"
 
 function ReceiptPreview() {
   const { watch } = useFormContext<ReceiptData>()
   const formData = watch()
 
   return (
-    <section className="w-11/12 p-3 flex flex-col gap-4 border-2 rounded-2xl bg-gray-300 dark:bg-primary">
-      <header className="flex flex-col justify-center items-center gap-0.5">
-        <div className="flex flex-row-reverse justify-center items-center gap-3">
-          <h2 className="font-bold text-2xl">Recibo de Pago</h2>
+    <section className="w-11/12 p-4 flex flex-col gap-4 border-2 border-slate-950 rounded-xl bg-gray-200 dark:bg-primary dark:border-primary-neutral">
+      <header className="flex flex-row-reverse justify-between items-center gap-4">
+        <div className="flex flex-col justify-center items-end">
+          <h2 className="mb-2 font-bold text-xl italic">
+            Recibo de Pago
+          </h2>
+          <p className="opacity-80 text-sm">
+            Quito, EC
+          </p>
+          <time
+            dateTime={getCurrentDate()}
+            className="opacity-80 text-sm"
+          >
+            {getCurrentDate()}
+          </time>
+        </div>
+
+        <div className="flex flex-col justify-center items-start gap-1.5">
           <img
             src={logo}
             alt="Logotipo del Profesor Búho"
-            className="w-12 h-12"
+            className="w-14 drop-shadow-sm drop-shadow-gray-600"
           />
+          <strong className="font-bold text-xl">
+            Profesor Búho
+          </strong>
         </div>
-
-        <strong className="text-center font-black text-2xl">
-          Profesor Búho
-        </strong>
-
-        <time
-          dateTime="05/04/2026"
-          className="text-center opacity-80"
-        >
-          05 de abril del 2026
-        </time>
       </header>
 
       <hr />
 
       <main className="flex flex-col justify-start gap-2">
-        <p>
-          <span className="font-semibold">Cliente: </span>
-          <span>{formData.customerName}</span>
-        </p>
+        <div className="mb-4 grid grid-cols-2 gap-4">
+          <ReceiptInfo
+            keyInfo="Cliente:"
+            info={formData.customerName}
+            textSize="lg"
+          />
 
-        {formData.studentName && (
-          <p>
-            <span className="font-semibold">Estudiante: </span>
-            <span>{formData.studentName}</span>
-          </p>
-        )}
+          {formData.studentName && (
+            <ReceiptInfo
+              keyInfo="Estudiante:"
+              info={formData.studentName}
+              textSize="lg"
+            />
+          )}
 
-        <p>
-          <span className="font-semibold">Profesor: </span>
-          <span>{formData.teacherName}</span>
-        </p>
+          <ReceiptInfo
+            keyInfo="Profesor:"
+            info={formData.teacherName}
+            textSize="lg"
+          />
+        </div>
 
-        <p>
-          <span className="font-semibold">Materia/Servicio: </span>
-          <span>{formData.subjectOrService}</span>
-        </p>
-
-        <p>
-          <span className="font-semibold">Modalidad: </span>
-          <span>{mappedModalityOptions[formData.modality]} - </span>
-          <span>${(formData.pricePerHour as number).toFixed(2)}/hora</span>
-        </p>
-
-        <article>
-          <h3 className="font-bold text-lg">Detalle</h3>
-          <div className="flex justify-between items-center">
-            <span className="w-2/6">Fecha</span>
-            <span>Tiempo</span>
-            <span>Subtotal</span>
+        <div className="mb-2.5">
+          <div className="mb-1 flex justify-between items-center">
+            <p className="font-bold text-sm uppercase text-gray-500 dark:text-gray-400">Detalle del servicio</p>
+            <p className="font-bold text-sm uppercase text-gray-500 dark:text-gray-400">Valor</p>
           </div>
+          <hr className="mb-3" />
           {
             formData.items.map((item, index) => (
-              <div
+              <ReceiptServiceDetails
                 key={index}
-                className="flex justify-between items-center"
-              >
-                <span className="w-2/6">{item.dateOfClasses}</span>
-                <span>{item.hoursOfClasses as number} horas</span>
-                <span>${(item.subtotal as number).toFixed(2)}</span>
-              </div>
+                subjectOrService={formData.subjectOrService}
+                modality={mappedModalityOptions[formData.modality]}
+                dateOfClasses={item.dateOfClasses}
+                hoursOfClasses={item.hoursOfClasses as number}
+                subtotal={item.subtotal as number}
+              />
             ))
           }
-        </article>
+        </div>
 
-        <p className="flex justify-end items-center gap-2 text-xl">
-          <span className="font-semibold">Total: </span>
-          <span>${formData.items.reduce((acum, item) => item.subtotal as number + acum, 0).toFixed(2)}</span>
-        </p>
+        <div className="mb-3 p-4 flex justify-center items-center gap-2 rounded-md text-2xl bg-gray-300 dark:bg-mist-700">
+          <p className="font-semibold">Total: </p>
+          <p>
+            ${formData.items.reduce((acum, item) => item.subtotal as number + acum, 0).toFixed(2)}
+          </p>
+        </div>
 
-        <p className="flex flex-col justify-start">
-          <span className="font-semibold">Notas u observaciones: </span>
-          <span>{formData.notesOrObservations}</span>
-        </p>
+        {formData.notesOrObservations && (
+          <ReceiptInfo
+            keyInfo="Notas u observaciones:"
+            info={formData.notesOrObservations}
+            textSize="sm"
+          />
+        )}
       </main>
 
       <footer>
-        <p className="text-sm text-center">
+        <p className="text-xs text-center">
           <span className="text-orange-600">Importante: </span>
-          <span>Documento sin valor tributario.</span>
+          <span className="text-gray-950 dark:text-primary-neutral">Documento sin valor tributario.</span>
         </p>
       </footer>
     </section>
