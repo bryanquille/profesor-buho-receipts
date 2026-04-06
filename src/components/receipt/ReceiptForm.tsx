@@ -29,58 +29,60 @@ function ReceiptForm() {
         <p>Ingresa la información para generar el recibo.</p>
       </div>
 
-      <Input
-        labelText="Nombre del cliente"
-        type="text"
-        id="customerName"
-        placeholder="Ej. John Doe"
-        {...register('customerName')}
-        error={errors.customerName}
-      />
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2">
+        <Input
+          labelText="Nombre del cliente"
+          type="text"
+          id="customerName"
+          placeholder="Ej. John Doe"
+          {...register('customerName')}
+          error={errors.customerName}
+        />
 
-      <Input
-        labelText="Nombre del estudiante"
-        type="text"
-        id="studentName"
-        placeholder="Ej. Junior Doe"
-        {...register('studentName')}
-        error={errors.studentName}
-      />
+        <Input
+          labelText="Nombre del estudiante"
+          type="text"
+          id="studentName"
+          placeholder="Ej. Junior Doe"
+          {...register('studentName')}
+          error={errors.studentName}
+        />
 
-      <Input
-        labelText="Nombre del Profesor"
-        type="text"
-        id="teacherName"
-        placeholder="Ej. Dr. Smith"
-        {...register('teacherName')}
-        error={errors.teacherName}
-      />
+        <Input
+          labelText="Nombre del Profesor"
+          type="text"
+          id="teacherName"
+          placeholder="Ej. Dr. Smith"
+          {...register('teacherName')}
+          error={errors.teacherName}
+        />
 
-      <Input
-        labelText="Materia/Servicio"
-        type="text"
-        id="subjectOrService"
-        placeholder="Ej. Matemáticas"
-        {...register('subjectOrService')}
-        error={errors.subjectOrService}
-      />
+        <Input
+          labelText="Materia/Servicio"
+          type="text"
+          id="subjectOrService"
+          placeholder="Ej. Matemáticas"
+          {...register('subjectOrService')}
+          error={errors.subjectOrService}
+        />
 
-      <Select
-        labelText="Modalidad"
-        id="modality"
-        mappedModalityOptions={mappedModalityOptions}
-        {...register('modality')}
-        error={errors.modality}
-      />
+        <Select
+          labelText="Modalidad"
+          id="modality"
+          mappedModalityOptions={mappedModalityOptions}
+          {...register('modality')}
+          error={errors.modality}
+        />
 
-      <Input
-        labelText="Precio por hora"
-        type="number"
-        id="pricePerHour"
-        placeholder="Ej. $10.00"
-        {...register('pricePerHour', { valueAsNumber: true })}
-        error={errors.pricePerHour as FieldError}
-      />
+        <Input
+          labelText="Precio por hora"
+          type="number"
+          id="pricePerHour"
+          placeholder="Ej. $10.00"
+          {...register('pricePerHour', { valueAsNumber: true })}
+          error={errors.pricePerHour as FieldError}
+        />
+      </div>
 
       <DynamicInputs />
 

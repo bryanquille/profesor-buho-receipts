@@ -10,7 +10,7 @@ function ReceiptPreview() {
   const formData = watch()
 
   return (
-    <section className="w-11/12 p-4 flex flex-col gap-4 border-2 border-slate-950 rounded-xl bg-gray-200 dark:bg-primary dark:border-primary-neutral">
+    <section className="w-11/12 p-4 max-w-102.5 flex flex-col gap-4 border-2 border-slate-950 rounded-xl bg-gray-200 dark:bg-primary dark:border-primary-neutral">
       <header className="flex flex-row-reverse justify-between items-center gap-4">
         <div className="flex flex-col justify-center items-end">
           <h2 className="mb-2 font-bold text-xl italic">

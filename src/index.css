@@ -13,7 +13,7 @@
 }
 
 body {
-  @apply font-google-sans text-content dark:text-primary-neutral;
+  @apply font-google-sans text-content bg-primary-neutral dark:bg-zinc-900 dark:text-primary-neutral;
 }
 
 input, select, textarea {

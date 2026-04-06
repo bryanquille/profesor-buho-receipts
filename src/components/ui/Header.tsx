@@ -11,7 +11,7 @@ function Header() {
     toggleTheme()
   }
   return (
-    <header className="mt-3 p-2 w-11/12 flex justify-between items-center gap-4 rounded-2xl bg-primary text-primary-neutral dark:shadow-xs dark:shadow-primary-neutral">
+    <header className="mt-3 p-2 w-11/12 flex justify-between items-center gap-4 rounded-2xl bg-primary text-primary-neutral dark:shadow-xs dark:shadow-primary-neutral md:py-3 md:justify-center md:gap-8">
       <div className="flex justify-center items-center gap-3">
         <img
           src={logo}
