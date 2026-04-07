@@ -32,13 +32,15 @@ function ReceiptActionsModal({ isOpen, onClose, image }: ReceiptActionsModalProp
 
   return (
     <div className="fixed inset-0 grid place-items-center bg-mist-900/90">
-      <section className="w-11/12 max-w-125 p-4 flex flex-col justify-center items-center gap-3 border-2 border-gray-900 rounded-xl bg-gray-100">
-        <header className="w-full flex justify-between items-center">
-          <h2>Vista previa y acciones</h2>
+      <section
+        className="w-11/12 max-w-125 p-4 flex flex-col justify-center items-center gap-3 border-2 border-gray-900 rounded-xl bg-gray-100"
+      >
+        <header className="relative p-3 w-full dark:text-slate-950">
+          <h2 className="font-semibold text-xl text-center">Vista previa y acciones</h2>
           <button
             type="button"
             onClick={onClose}
-            className="cursor-pointer"
+            className="cursor-pointer absolute top-2 right-0 p-2 rounded-full hover:bg-gray-200 transition-colors duration-150 ease-in md:top-3 md:right-3"
           >
             <CloseIcon />
           </button>

@@ -17,12 +17,13 @@ function ReceiptServiceDetails({
       className="mb-1.5 flex justify-between items-center"
     >
       <div>
-        <p className="font-semibold text-lg text-slate-950 dark:text-primary-neutral">
-          {subjectOrService} ({modality})
+        <p className="flex justify-start items-center gap-2 font-semibold text-lg text-slate-950 dark:text-primary-neutral">
+          <span>{subjectOrService}</span>
+          <span>({modality})</span>
         </p>
         <p className="text-sm text-gray-600 dark:text-gray-300">
           <time dateTime={dateOfClasses}>
-            {dateOfClasses.replaceAll('-', '/')}
+            {dateOfClasses.split('-').reverse().join('/')}
           </time>
           <span> - {hoursOfClasses} Horas</span>
         </p>
