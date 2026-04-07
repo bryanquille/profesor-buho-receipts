@@ -5,8 +5,13 @@ import Textarea from "../ui/Textarea"
 import Select from "../ui/Select"
 import GenerateButton from "../ui/GenerateButton"
 import DynamicInputs from "./DynamicInputs"
+import ResetButton from "../ui/ResetButton"
 
-function ReceiptForm() {
+interface ReceiptFormPropsTypes {
+  onGenerate: () => void;
+}
+
+function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
   const {
     register,
     handleSubmit,
@@ -16,7 +21,7 @@ function ReceiptForm() {
 
   const onSubmit = (data: ReceiptData) => {
     console.log(data)
-    reset(RECEIPT_DEFAULT_VALUES)
+    onGenerate()
   }
 
   return (
@@ -94,7 +99,12 @@ function ReceiptForm() {
         error={errors.notesOrObservations}
       />
 
-      <GenerateButton />
+      <div className="flex justify-between items-center gap-4">
+        <GenerateButton />
+        <ResetButton 
+          handleClick={() => reset(RECEIPT_DEFAULT_VALUES)}
+        />
+      </div>
     </form>
   )
 }
