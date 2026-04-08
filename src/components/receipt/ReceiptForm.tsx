@@ -26,7 +26,7 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
 
   return (
     <form
-      className="w-11/12 p-3 flex flex-col gap-4 border-2 rounded-2xl bg-gray-300 dark:bg-primary"
+      className="w-full p-3 flex flex-col gap-4 border-2 rounded-2xl bg-gray-300 dark:bg-primary"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>

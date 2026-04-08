@@ -3,31 +3,16 @@ import { RECEIPT_DEFAULT_VALUES, ReceiptSchema, type ReceiptData } from "../../l
 import { zodResolver } from "@hookform/resolvers/zod"
 import ReceiptForm from "./ReceiptForm"
 import ReceiptPreview from "./ReceiptPreview"
-import { useRef, useState } from "react"
-import { toPng } from "html-to-image"
 import ReceiptActionsModal from "./ReceiptActionsModal"
+import { useGenerateReceipt } from "../../hooks/useGenerateReceipt"
 
 function Receipt() {
   const methods = useForm<ReceiptData>({
     resolver: zodResolver(ReceiptSchema),
     defaultValues: RECEIPT_DEFAULT_VALUES
   })
-  const [isModalReceiptOpen, setIsModalReceiptOpen] = useState(true)
-  const [receiptImage, setReceiptImage] = useState<string | null>(null)
-  const previewRef = useRef<HTMLElement | null>(null)
 
-  const handleGenerate = async () => {
-    if (previewRef.current === null) return
-
-    const dataUrl = await toPng(previewRef.current, { cacheBust: true })
-    setReceiptImage(dataUrl)
-
-    setIsModalReceiptOpen(true)
-  }
-
-  const onClose = () => {
-    setIsModalReceiptOpen(false)
-  }
+  const { isModalReceiptOpen, isLoading, receiptImage, previewRef, handleGenerate, onClose } = useGenerateReceipt()
 
   return (
     <FormProvider {...methods}>
@@ -40,6 +25,7 @@ function Receipt() {
 
       <ReceiptActionsModal
         isOpen={isModalReceiptOpen}
+        isLoading={isLoading}
         onClose={onClose}
         image={receiptImage}
       />
