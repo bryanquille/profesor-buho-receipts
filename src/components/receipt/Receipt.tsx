@@ -5,6 +5,7 @@ import ReceiptForm from "./ReceiptForm"
 import ReceiptPreview from "./ReceiptPreview"
 import ReceiptActionsModal from "./ReceiptActionsModal"
 import { useGenerateReceipt } from "../../hooks/useGenerateReceipt"
+import LightReceipt from "./LightReceipt"
 
 function Receipt() {
   const methods = useForm<ReceiptData>({
@@ -19,9 +20,13 @@ function Receipt() {
       <ReceiptForm
         onGenerate={handleGenerate}
       />
-      <ReceiptPreview
-        ref={previewRef}
-      />
+      <ReceiptPreview />
+
+      <div className="absolute -top-250">
+        <LightReceipt
+          ref={previewRef}
+        />
+      </div>
 
       <ReceiptActionsModal
         isOpen={isModalReceiptOpen}
