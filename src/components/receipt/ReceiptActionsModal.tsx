@@ -40,7 +40,7 @@ function ReceiptActionsModal({ isOpen, isLoading, onClose, image }: ReceiptActio
         {isLoading &&
           <div className="grid place-items-center gap-2">
             <Loader />
-            <p className="text-2xl">Generando Recibo...</p>
+            <p className="text-2xl text-slate-950">Generando Recibo...</p>
           </div>
         }
         {(image && !isLoading) &&
