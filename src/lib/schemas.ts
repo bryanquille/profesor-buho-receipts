@@ -27,6 +27,10 @@ export const RECEIPT_DEFAULT_VALUES: ReceiptData = {
 
 // Sub-schema for individual receipt items (classes or sessions)
 const ReceiptItemSchema = z.object({
+  independantSubjectOrService: z
+    .string()
+    .optional(),
+
   dateOfClasses: z
     .string()
     .min(1, "La fecha es requerida."),
@@ -65,6 +69,10 @@ export const ReceiptSchema = z.object({
   pricePerHour: z
     .coerce.number({ message: "El precio por hora es requerido." })
     .positive("El precio debe ser mayor a 0"),
+
+  independantSubjectOrService: z
+    .boolean()
+    .optional(),
 
   items: z
     .array(ReceiptItemSchema)

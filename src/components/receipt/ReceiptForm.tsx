@@ -14,10 +14,13 @@ interface ReceiptFormPropsTypes {
 function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
   const {
     register,
+    getValues,
     handleSubmit,
     reset,
     formState: { errors },
   } = useFormContext<ReceiptData>()
+
+  const isIndependantSubjectOrService = getValues('independantSubjectOrService')
 
   const onSubmit = (data: ReceiptData) => {
     console.log(data)
@@ -67,6 +70,8 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
           type="text"
           id="subjectOrService"
           placeholder="Ej. Matemáticas"
+          disabled={isIndependantSubjectOrService}
+          className={isIndependantSubjectOrService ? 'bg-gray-400 cursor-not-allowed dark:bg-gray-600' : ''}
           {...register('subjectOrService')}
           error={errors.subjectOrService}
         />
@@ -89,6 +94,21 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
         />
       </div>
 
+      <div className="flex flex-row-reverse justify-end items-center gap-2">
+        <label
+          htmlFor="independantSubjectOrService"
+        >
+          ¿Materia/Servicio independiente?
+        </label>
+        <input
+          type="checkbox"
+          id="independantSubjectOrService"
+          className="cursor-pointer transform scale-150"
+          style={{ width: '3rem', padding: 0 }}
+          {...register('independantSubjectOrService')}
+        />
+      </div>
+
       <DynamicInputs />
 
       <Textarea
@@ -101,7 +121,7 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
 
       <div className="flex justify-between items-center gap-4">
         <GenerateButton />
-        <ResetButton 
+        <ResetButton
           handleClick={() => reset(RECEIPT_DEFAULT_VALUES)}
         />
       </div>
