@@ -89,6 +89,7 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
           type="number"
           id="pricePerHour"
           placeholder="Ej. $10.00"
+          step="0.01"
           {...register('pricePerHour', { valueAsNumber: true })}
           error={errors.pricePerHour as FieldError}
         />
@@ -109,7 +110,9 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
         />
       </div>
 
-      <DynamicInputs />
+      <DynamicInputs
+        isIndependantSubjectOrService={isIndependantSubjectOrService}
+      />
 
       <Textarea
         labelText="Notas/Observaciones"

@@ -58,10 +58,7 @@ export const ReceiptSchema = z.object({
     .min(1, "El nombre del profesor es requerido.")
     .min(2, "El nombre del profesor es muy corto."),
 
-  subjectOrService: z
-    .string()
-    .min(1, "Debes especificar la materia o servicio.")
-    .min(2, "La materio o servicio es demasiado corto."),
+  subjectOrService: z.string().optional(),
 
   modality: z
     .enum(modalityOptions, { message: 'Debes escoger una modalidad.' }),

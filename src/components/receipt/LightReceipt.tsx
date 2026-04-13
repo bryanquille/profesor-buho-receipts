@@ -86,7 +86,7 @@ const LightReceipt = forwardRef<HTMLElement, ReceiptPreviewPropsTypes>(
               formData.items.map((item, index) => (
                 <ReceiptServiceDetails
                   key={index}
-                  subjectOrService={formData.subjectOrService}
+                  subjectOrService={formData.independantSubjectOrService ? item.independantSubjectOrService ?? "" : formData.subjectOrService ?? ""}
                   modality={mappedModalityOptions[formData.modality]}
                   dateOfClasses={item.dateOfClasses}
                   hoursOfClasses={item.hoursOfClasses as number}

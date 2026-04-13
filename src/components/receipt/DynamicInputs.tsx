@@ -5,7 +5,11 @@ import RemoveButton from "../ui/RemoveButton"
 import ErrorMessage from "../ui/ErrorMessage"
 import AddItemButtom from "../ui/AddItemButtom"
 
-function DynamicInputs() {
+interface DynamicInputsProps {
+  isIndependantSubjectOrService: boolean | undefined;
+}
+
+function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
   const { register, control, formState: { errors } } = useFormContext<ReceiptData>()
   const { fields, append, remove } = useFieldArray({
     control,
@@ -19,8 +23,19 @@ function DynamicInputs() {
         fields.map((field, index) => (
           <div key={field.id}>
             <div
-              className="w-full flex justify-between items-end gap-2"
+              className={`${isIndependantSubjectOrService ? 'grid grid-cols-2 gap-y-2 gap-x-3' : 'w-full flex justify-between items-end gap-2'}`}
             >
+              {isIndependantSubjectOrService &&
+                <Input
+                  labelText="Materia/Servicio"
+                  smallFont={true}
+                  type="text"
+                  id={`independantSubjectOrService-${index}`}
+                  placeholder="Ej. Matemáticas"
+                  {...register(`items.${index}.independantSubjectOrService` as const)}
+                />
+              }
+
               <Input
                 labelText="Fecha"
                 smallFont={true}
@@ -47,6 +62,7 @@ function DynamicInputs() {
                 id={`subtotal-${index}`}
                 placeholder="$10.00"
                 className="w-1/4"
+                step="0.01"
                 {...register(`items.${index}.subtotal` as const,
                   { valueAsNumber: true }
                 )}
@@ -55,6 +71,7 @@ function DynamicInputs() {
               <RemoveButton
                 disabledExpression={fields.length === 1}
                 handleClick={() => remove(index)}
+                isIndependantSubjectOrService={isIndependantSubjectOrService}
               />
             </div>
             <div className="mt-1.5 mb-2 flex flex-col justify-center items-start gap-1">
