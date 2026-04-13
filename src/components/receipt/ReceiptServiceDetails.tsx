@@ -25,7 +25,7 @@ function ReceiptServiceDetails({
           <time dateTime={dateOfClasses}>
             {dateOfClasses.split('-').reverse().join('/')}
           </time>
-          <span> - {hoursOfClasses} Horas</span>
+          <span> - {hoursOfClasses} {hoursOfClasses > 1 ? 'Horas' : 'Hora'}</span>
         </p>
       </div>
       <p className={`text-xl ${isTextLightTheme ? 'text-slate-950' : 'text-slate-950 dark:text-primary-neutral'}`}>
