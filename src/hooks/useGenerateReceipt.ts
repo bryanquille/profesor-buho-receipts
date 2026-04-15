@@ -1,4 +1,4 @@
-import { toPng } from "html-to-image"
+import { domToPng } from "modern-screenshot"
 import { useRef, useState } from "react"
 
 export const useGenerateReceipt = () => {
@@ -8,14 +8,23 @@ export const useGenerateReceipt = () => {
   const previewRef = useRef<HTMLElement | null>(null)
 
   const handleGenerate = async () => {
-    if (previewRef.current === null) return
+    if (!previewRef.current) return
     setIsModalReceiptOpen(true)
     setIsLoading(true)
 
-    const dataUrl = await toPng(previewRef.current, { cacheBust: true })
-    setReceiptImage(dataUrl)
+    try {
+      await document.fonts.ready
+      const dataUrl = await domToPng(previewRef.current, {
+        scale: 2,
+      });
 
-    setIsLoading(false)
+      setReceiptImage(dataUrl)
+    } catch (error) {
+      console.error("Error generando el recibo en este navegador:", error)
+      alert("Hubo un problema al generar la imagen. Por favor, intenta usar otro navegador si el error persiste.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const onClose = () => {
