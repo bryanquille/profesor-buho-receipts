@@ -1,20 +1,47 @@
 import type { ReceiptData } from "../../lib/schemas"
-import { useFieldArray, useFormContext, type FieldError } from "react-hook-form"
+import { useFieldArray, useFormContext, type FieldError, useWatch } from "react-hook-form"
 import Input from "../ui/Input"
 import RemoveButton from "../ui/RemoveButton"
 import ErrorMessage from "../ui/ErrorMessage"
 import AddItemButtom from "../ui/AddItemButtom"
+import { useEffect } from "react"
+import { convertTimeToHours } from "../../lib/utils"
 
 interface DynamicInputsProps {
   isIndependantSubjectOrService: boolean | undefined;
 }
 
 function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
-  const { register, control, formState: { errors } } = useFormContext<ReceiptData>()
+  const { register, control, formState: { errors }, setValue } = useFormContext<ReceiptData>()
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items"
   })
+
+  const globalPricePerHour = useWatch({
+    control,
+    name: "pricePerHour"
+  })
+
+  const items = useWatch({
+    control,
+    name: "items"
+  })
+
+  useEffect(() => {
+    items?.forEach((item, index) => {
+      const hours = convertTimeToHours(item.hoursOfClasses)
+      const price = Number(globalPricePerHour)
+
+      if (hours > 0 && price > 0) {
+        const calculatedSubtotal = hours * price
+        if (item.subtotal !== calculatedSubtotal) {
+          setValue(`items.${index}.subtotal`, calculatedSubtotal)
+        }
+      }
+    })
+  }, [items, globalPricePerHour, setValue])
+  
 
   return (
     <div className="w-full">
@@ -41,17 +68,15 @@ function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
                 smallFont={true}
                 type="date"
                 id={`dateOfClasses-${index}`}
-                className="w-1/4"
                 {...register(`items.${index}.dateOfClasses` as const)}
               />
 
               <Input
-                labelText="Horas"
+                labelText="Tiempo"
                 smallFont={true}
-                type="number"
+                type="text"
                 id={`hoursOfClasses-${index}`}
-                placeholder="Ej. 2"
-                className="w-1/4"
+                placeholder="Ej. 02:00"
                 {...register(`items.${index}.hoursOfClasses` as const)}
               />
 
@@ -61,7 +86,6 @@ function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
                 type="number"
                 id={`subtotal-${index}`}
                 placeholder="$10.00"
-                className="w-1/4"
                 step="0.01"
                 {...register(`items.${index}.subtotal` as const,
                   { valueAsNumber: true }
@@ -97,7 +121,7 @@ function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
       <AddItemButtom
         handleClick={() => append({
           dateOfClasses: '',
-          hoursOfClasses: 0,
+          hoursOfClasses: '',
           subtotal: 0
         })}
       />

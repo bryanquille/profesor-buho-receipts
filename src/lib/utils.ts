@@ -10,3 +10,9 @@ export const getCurrentDate = () => {
   const dateFirstUpper = localDate.replace(localDate[0], localDate[0].toLocaleUpperCase())
   return dateFirstUpper
 }
+
+export const convertTimeToHours = (hours: string) => {
+  const [hourPart, minutePart] = hours.split(':').map(Number)
+  const totalHours = hourPart + (minutePart / 60)
+  return totalHours
+}

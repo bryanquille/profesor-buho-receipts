@@ -83,7 +83,7 @@ const ReceiptPreview = () => {
                 subjectOrService={formData.independantSubjectOrService ? item.independantSubjectOrService ?? "" : formData.subjectOrService ?? ""}
                 modality={mappedModalityOptions[formData.modality]}
                 dateOfClasses={item.dateOfClasses}
-                hoursOfClasses={item.hoursOfClasses as number}
+                hoursOfClasses={item.hoursOfClasses}
                 subtotal={item.subtotal as number}
                 isTextLightTheme={false}
               />

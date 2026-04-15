@@ -19,7 +19,7 @@ export const RECEIPT_DEFAULT_VALUES: ReceiptData = {
   pricePerHour: 0,
   items: [{
     dateOfClasses: '',
-    hoursOfClasses: 0,
+    hoursOfClasses: '',
     subtotal: 0
   }],
   notesOrObservations: ''
@@ -36,8 +36,9 @@ const ReceiptItemSchema = z.object({
     .min(1, "La fecha es requerida."),
 
   hoursOfClasses: z
-    .coerce.number({ message: "Las horas de clase son requeridas." })
-    .positive("Las horas deben ser mayores a 0."),
+    .string()
+    .min(1, "La duración en Horas:minutos es requerida.")
+    .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "El formato de horas debe ser HH:mm."),
 
   subtotal: z
     .coerce.number({ message: "El valor subtotal es requerido." })
