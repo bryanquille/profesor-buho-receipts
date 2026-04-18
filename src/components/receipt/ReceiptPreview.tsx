@@ -94,7 +94,7 @@ const ReceiptPreview = () => {
         <div className="mb-3 p-4 flex justify-center items-center gap-2 rounded-md text-2xl bg-gray-300 dark:bg-mist-700">
           <p className="font-semibold">Total: </p>
           <p>
-            ${formData.items.reduce((acum, item) => item.subtotal as number + acum, 0).toFixed(2)}
+            ${(formData.totalToPay as number)?.toFixed(2) ?? 0.00}
           </p>
         </div>
 

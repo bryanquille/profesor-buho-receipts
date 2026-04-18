@@ -1,4 +1,4 @@
-import { useFormContext, type FieldError } from "react-hook-form"
+import { useFormContext, useWatch, type FieldError } from "react-hook-form"
 import { type ReceiptData, mappedModalityOptions, RECEIPT_DEFAULT_VALUES } from "../../lib/schemas"
 import Input from "../ui/Input"
 import Textarea from "../ui/Textarea"
@@ -6,6 +6,7 @@ import Select from "../ui/Select"
 import GenerateButton from "../ui/GenerateButton"
 import DynamicInputs from "./DynamicInputs"
 import ResetButton from "../ui/ResetButton"
+import { useModifyTotal } from "../../hooks/useModifyTotal"
 
 interface ReceiptFormPropsTypes {
   onGenerate: () => void;
@@ -14,13 +15,18 @@ interface ReceiptFormPropsTypes {
 function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
   const {
     register,
-    getValues,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
   } = useFormContext<ReceiptData>()
 
-  const isIndependantSubjectOrService = getValues('independantSubjectOrService')
+  const isIndependantSubjectOrService = useWatch({
+    control,
+    name: "independantSubjectOrService"
+  })
+
+  const { isModifyTotalToPay } = useModifyTotal()
 
   const onSubmit = (data: ReceiptData) => {
     console.log(data)
@@ -110,9 +116,7 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
         />
       </div>
 
-      <DynamicInputs
-        isIndependantSubjectOrService={isIndependantSubjectOrService}
-      />
+      <DynamicInputs />
 
       <Textarea
         labelText="Notas/Observaciones"
@@ -120,6 +124,31 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
         placeholder="Ej. Revisión de ecuaciones de primer grado."
         {...register('notesOrObservations')}
         error={errors.notesOrObservations}
+      />
+
+      <div>
+        <label htmlFor="modifyTotalToPay">
+          Modificar Total a Pagar
+        </label>
+        <input
+          type="checkbox"
+          id="modifyTotalToPay"
+          className="transform scale-150"
+          style={{ width: '3rem', padding: 0 }}
+          {...register('modifyTotalToPay')}
+        />
+      </div>
+
+      <Input
+        labelText="Total a Pagar"
+        type="number"
+        id="totalToPay"
+        placeholder="Ej. $50.00"
+        step="0.01"
+        disabled={!isModifyTotalToPay}
+        className={!isModifyTotalToPay ? 'bg-gray-400 cursor-not-allowed dark:bg-gray-600' : ''}
+        {...register('totalToPay', { valueAsNumber: true })}
+        error={errors.totalToPay as FieldError}
       />
 
       <div className="flex justify-between items-center gap-4">

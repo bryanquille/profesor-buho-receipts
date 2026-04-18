@@ -14,6 +14,7 @@ function ReceiptServiceDetails({
   hoursOfClasses,
   subtotal,
   isTextLightTheme }: ReceiptServiceDetailsPropsTypes) {
+
   const totalHours = (Number(hoursOfClasses.split(':')[0])
     + Number(hoursOfClasses.split(':')[1]) / 60).toFixed(2)
 
@@ -28,7 +29,7 @@ function ReceiptServiceDetails({
           <time dateTime={dateOfClasses}>
             {dateOfClasses.split('-').reverse().join('/')}
           </time>
-          <span> - {totalHours} {Number(totalHours) > 1 ? 'Horas' : 'Hora'}</span>
+          <span> - {isNaN(Number(totalHours)) ? '0.00' : totalHours} {Number(totalHours) > 1 ? 'Horas' : 'Hora'}</span>
         </p>
       </div>
       <p className={`text-xl ${isTextLightTheme ? 'text-slate-950' : 'text-slate-950 dark:text-primary-neutral'}`}>

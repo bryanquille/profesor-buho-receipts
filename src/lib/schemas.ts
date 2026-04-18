@@ -22,7 +22,9 @@ export const RECEIPT_DEFAULT_VALUES: ReceiptData = {
     hoursOfClasses: '',
     subtotal: 0
   }],
-  notesOrObservations: ''
+  notesOrObservations: '',
+  modifyTotalToPay: false,
+  totalToPay: 0
 }
 
 // Sub-schema for individual receipt items (classes or sessions)
@@ -77,6 +79,13 @@ export const ReceiptSchema = z.object({
     .min(1, "Debes agregar al menos una clase o sesión"),
 
   notesOrObservations: z.string().optional(),
+
+  modifyTotalToPay: z.boolean().optional(),
+
+  totalToPay: z
+    .coerce.number({ message: "El total a pagar es requerido." })
+    .positive("El total a pagar debe ser mayor a 0.")
+    .optional(),
 });
 
 // Types inferred from the schemas for use in the application

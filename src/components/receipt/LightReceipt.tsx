@@ -18,7 +18,7 @@ const LightReceipt = forwardRef<HTMLElement, ReceiptPreviewPropsTypes>(
     return (
       <section
         ref={ref}
-        className="w-105 p-4 flex flex-col gap-4 border-2 border-slate-950 rounded-xl bg-gray-200 text-slate-950"
+        className="w-105 px-8 py-6 flex flex-col gap-4 border-2 border-slate-950 rounded-xl bg-gray-200 text-slate-950"
       >
         <header className="flex flex-row-reverse justify-between items-center gap-4">
           <div className="flex flex-col justify-center items-end">
@@ -100,7 +100,7 @@ const LightReceipt = forwardRef<HTMLElement, ReceiptPreviewPropsTypes>(
           <div className="mb-3 p-4 flex justify-center items-center gap-2 rounded-md text-2xl bg-gray-300">
             <p className="font-semibold">Total: </p>
             <p>
-              ${formData.items.reduce((acum, item) => item.subtotal as number + acum, 0).toFixed(2)}
+              ${(formData.totalToPay as number)?.toFixed(2) ?? 0.00}
             </p>
           </div>
 

@@ -7,15 +7,16 @@ import AddItemButtom from "../ui/AddItemButtom"
 import { useEffect } from "react"
 import { convertTimeToHours } from "../../lib/utils"
 
-interface DynamicInputsProps {
-  isIndependantSubjectOrService: boolean | undefined;
-}
-
-function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
+function DynamicInputs() {
   const { register, control, formState: { errors }, setValue } = useFormContext<ReceiptData>()
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items"
+  })
+
+  const isIndependantSubjectOrService = useWatch({
+    control,
+    name: "independantSubjectOrService"
   })
 
   const globalPricePerHour = useWatch({
@@ -41,7 +42,6 @@ function DynamicInputs({ isIndependantSubjectOrService }: DynamicInputsProps) {
       }
     })
   }, [items, globalPricePerHour, setValue])
-  
 
   return (
     <div className="w-full">
