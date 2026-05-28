@@ -18,6 +18,7 @@ export const RECEIPT_DEFAULT_VALUES: ReceiptData = {
   modality: 'online' as const,
   pricePerHour: 0,
   items: [{
+    independantModality: 'online',
     dateOfClasses: '',
     hoursOfClasses: '',
     subtotal: 0
@@ -32,6 +33,9 @@ const ReceiptItemSchema = z.object({
   independantSubjectOrService: z
     .string()
     .optional(),
+  
+  independantModality: z
+    .enum(modalityOptions, { message: 'Debes escoger una modalidad.' }),
 
   dateOfClasses: z
     .string()
@@ -71,6 +75,10 @@ export const ReceiptSchema = z.object({
     .positive("El precio debe ser mayor a 0"),
 
   independantSubjectOrService: z
+    .boolean()
+    .optional(),
+
+  independantModality: z
     .boolean()
     .optional(),
 

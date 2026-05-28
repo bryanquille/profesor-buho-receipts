@@ -80,8 +80,16 @@ const ReceiptPreview = () => {
             formData.items.map((item, index) => (
               <ReceiptServiceDetails
                 key={index}
-                subjectOrService={formData.independantSubjectOrService ? item.independantSubjectOrService ?? "" : formData.subjectOrService ?? ""}
-                modality={mappedModalityOptions[formData.modality]}
+                subjectOrService={
+                  formData.independantSubjectOrService
+                    ? item.independantSubjectOrService ?? ""
+                    : formData.subjectOrService ?? ""
+                }
+                modality={
+                  formData.independantModality
+                    ? mappedModalityOptions[item.independantModality]
+                    : mappedModalityOptions[formData.modality]
+                }
                 dateOfClasses={item.dateOfClasses}
                 hoursOfClasses={item.hoursOfClasses}
                 subtotal={item.subtotal as number}

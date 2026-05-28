@@ -1,4 +1,4 @@
-import type { ReceiptData } from "../../lib/schemas"
+import { mappedModalityOptions, type ReceiptData } from "../../lib/schemas"
 import { useFieldArray, useFormContext, type FieldError, useWatch } from "react-hook-form"
 import Input from "../ui/Input"
 import RemoveButton from "../ui/RemoveButton"
@@ -6,6 +6,7 @@ import ErrorMessage from "../ui/ErrorMessage"
 import AddItemButtom from "../ui/AddItemButtom"
 import { useEffect } from "react"
 import { convertTimeToHours } from "../../lib/utils"
+import Select from "../ui/Select";
 
 function DynamicInputs() {
   const { register, control, formState: { errors }, setValue } = useFormContext<ReceiptData>()
@@ -17,6 +18,11 @@ function DynamicInputs() {
   const isIndependantSubjectOrService = useWatch({
     control,
     name: "independantSubjectOrService"
+  })
+
+  const isIndependantModality = useWatch({
+    control,
+    name: "independantModality"
   })
 
   const globalPricePerHour = useWatch({
@@ -50,7 +56,7 @@ function DynamicInputs() {
         fields.map((field, index) => (
           <div key={field.id}>
             <div
-              className={`${isIndependantSubjectOrService ? 'grid grid-cols-2 gap-y-2 gap-x-3' : 'w-full flex justify-between items-end gap-2'}`}
+              className='grid grid-cols-2 gap-y-2 gap-x-3'
             >
               {isIndependantSubjectOrService &&
                 <Input
@@ -60,6 +66,16 @@ function DynamicInputs() {
                   id={`independantSubjectOrService-${index}`}
                   placeholder="Ej. Matemáticas"
                   {...register(`items.${index}.independantSubjectOrService` as const)}
+                />
+              }
+
+              {isIndependantModality &&
+                <Select
+                  labelText="Modalidad"
+                  smallFont={true}
+                  id={`independantModality-${index}`}
+                  mappedModalityOptions={mappedModalityOptions}
+                  {...register(`items.${index}.independantModality` as const)}
                 />
               }
 
@@ -96,6 +112,7 @@ function DynamicInputs() {
                 disabledExpression={fields.length === 1}
                 handleClick={() => remove(index)}
                 isIndependantSubjectOrService={isIndependantSubjectOrService}
+                isIndependantModality={isIndependantModality}
               />
             </div>
             <div className="mt-1.5 mb-2 flex flex-col justify-center items-start gap-1">
@@ -120,6 +137,7 @@ function DynamicInputs() {
       }
       <AddItemButtom
         handleClick={() => append({
+          independantModality: 'online',
           dateOfClasses: '',
           hoursOfClasses: '',
           subtotal: 0

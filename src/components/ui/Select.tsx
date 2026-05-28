@@ -7,15 +7,16 @@ interface SelectPropsTypes extends React.SelectHTMLAttributes<HTMLSelectElement>
   labelText: string;
   mappedModalityOptions: typeof mappedModalityOptions;
   error?: FieldError
+  smallFont?: boolean;
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectPropsTypes>(
-  ({ labelText, mappedModalityOptions, id, error, ...props }, ref) => {
+  ({ labelText, mappedModalityOptions, id, error, smallFont, ...props }, ref) => {
     return (
       <div className="flex flex-col justify-center items-start">
         <label
           htmlFor={id}
-          className="font-medium"
+          className={smallFont ? "text-sm font-medium" : "font-medium"}
         >
           {labelText}
         </label>

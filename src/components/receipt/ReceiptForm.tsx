@@ -26,6 +26,11 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
     name: "independantSubjectOrService"
   })
 
+  const isIndependantModality = useWatch({
+    control,
+    name: "independantModality"
+  })
+
   const { isModifyTotalToPay } = useModifyTotal()
 
   const onSubmit = (data: ReceiptData) => {
@@ -85,6 +90,8 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
         <Select
           labelText="Modalidad"
           id="modality"
+          disabled={isIndependantModality}
+          className={isIndependantModality ? 'bg-gray-400 cursor-not-allowed dark:bg-gray-600' : ''}
           mappedModalityOptions={mappedModalityOptions}
           {...register('modality')}
           error={errors.modality}
@@ -113,6 +120,21 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
           className="cursor-pointer transform scale-150"
           style={{ width: '3rem', padding: 0 }}
           {...register('independantSubjectOrService')}
+        />
+      </div>
+      
+      <div className="flex flex-row-reverse justify-end items-center gap-2">
+        <label
+          htmlFor="independantModality"
+        >
+          ¿Modalidad independiente?
+        </label>
+        <input
+          type="checkbox"
+          id="independantModality"
+          className="cursor-pointer transform scale-150"
+          style={{ width: '3rem', padding: 0 }}
+          {...register('independantModality')}
         />
       </div>
 
