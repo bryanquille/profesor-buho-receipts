@@ -25,6 +25,11 @@ function DynamicInputs() {
     name: "independantModality"
   })
 
+  const isIndependantPricePerHour = useWatch({
+    control,
+    name: "independantPricePerHour"
+  })
+
   const globalPricePerHour = useWatch({
     control,
     name: "pricePerHour"
@@ -38,7 +43,9 @@ function DynamicInputs() {
   useEffect(() => {
     items?.forEach((item, index) => {
       const hours = convertTimeToHours(item.hoursOfClasses)
-      const price = Number(globalPricePerHour)
+      const price = isIndependantPricePerHour
+        ? Number(item.independantPricePerHour)
+        : Number(globalPricePerHour)
 
       if (hours > 0 && price > 0) {
         const calculatedSubtotal = hours * price
@@ -47,7 +54,7 @@ function DynamicInputs() {
         }
       }
     })
-  }, [items, globalPricePerHour, setValue])
+  }, [items, isIndependantPricePerHour, globalPricePerHour, setValue])
 
   return (
     <div className="w-full">
@@ -76,6 +83,18 @@ function DynamicInputs() {
                   id={`independantModality-${index}`}
                   mappedModalityOptions={mappedModalityOptions}
                   {...register(`items.${index}.independantModality` as const)}
+                />
+              }
+
+              {isIndependantPricePerHour &&
+                <Input
+                  labelText="Precio por hora"
+                  smallFont={true}
+                  type="number"
+                  id={`independantPricePerHour-${index}`}
+                  placeholder="Ej. $10.00"
+                  step="0.01"
+                  {...register(`items.${index}.independantPricePerHour` as const, { valueAsNumber: true })}
                 />
               }
 
@@ -113,6 +132,7 @@ function DynamicInputs() {
                 handleClick={() => remove(index)}
                 isIndependantSubjectOrService={isIndependantSubjectOrService}
                 isIndependantModality={isIndependantModality}
+                isIndependantPricePerHour={isIndependantPricePerHour}
               />
             </div>
             <div className="mt-1.5 mb-2 flex flex-col justify-center items-start gap-1">

@@ -16,9 +16,9 @@ export const RECEIPT_DEFAULT_VALUES: ReceiptData = {
   teacherName: '',
   subjectOrService: '',
   modality: 'online' as const,
-  pricePerHour: 0,
+  pricePerHour: undefined,
   items: [{
-    independantModality: 'online',
+    independantModality: 'online' as const,
     dateOfClasses: '',
     hoursOfClasses: '',
     subtotal: 0
@@ -33,9 +33,14 @@ const ReceiptItemSchema = z.object({
   independantSubjectOrService: z
     .string()
     .optional(),
-  
+
   independantModality: z
     .enum(modalityOptions, { message: 'Debes escoger una modalidad.' }),
+
+  independantPricePerHour: z
+    .coerce.number({ message: "El precio por hora es requerido." })
+    .positive("El precio debe ser mayor a 0")
+    .optional(),
 
   dateOfClasses: z
     .string()
@@ -58,27 +63,41 @@ export const ReceiptSchema = z.object({
     .min(1, "El nombre del cliente es requerido.")
     .min(2, "El nombre del cliente es muy corto."),
 
-  studentName: z.string().optional(),
+  studentName: z
+    .string()
+    .optional(),
 
   teacherName: z
     .string()
     .min(1, "El nombre del profesor es requerido.")
     .min(2, "El nombre del profesor es muy corto."),
 
-  subjectOrService: z.string().optional(),
+  subjectOrService: z
+    .string()
+    .optional(),
 
   modality: z
     .enum(modalityOptions, { message: 'Debes escoger una modalidad.' }),
 
   pricePerHour: z
-    .coerce.number({ message: "El precio por hora es requerido." })
-    .positive("El precio debe ser mayor a 0"),
+    .preprocess(
+      (val) => (val == '' || val == null || Number.isNaN(val) ? undefined : val),
+      z.coerce
+        .number({ message: "El precio por hora es requerido." })
+        .positive("El precio debe ser mayor a 0")
+        .optional()
+    )
+    .optional(),
 
   independantSubjectOrService: z
     .boolean()
     .optional(),
 
   independantModality: z
+    .boolean()
+    .optional(),
+
+  independantPricePerHour: z
     .boolean()
     .optional(),
 

@@ -31,6 +31,11 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
     name: "independantModality"
   })
 
+  const isIndependantPricePerHour = useWatch({
+    control,
+    name: "independantPricePerHour"
+  })
+
   const { isModifyTotalToPay } = useModifyTotal()
 
   const onSubmit = (data: ReceiptData) => {
@@ -101,6 +106,8 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
           labelText="Precio por hora"
           type="number"
           id="pricePerHour"
+          disabled={isIndependantPricePerHour}
+          className={isIndependantPricePerHour ? 'bg-gray-400 cursor-not-allowed dark:bg-gray-600' : ''}
           placeholder="Ej. $10.00"
           step="0.01"
           {...register('pricePerHour', { valueAsNumber: true })}
@@ -122,7 +129,7 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
           {...register('independantSubjectOrService')}
         />
       </div>
-      
+
       <div className="flex flex-row-reverse justify-end items-center gap-2">
         <label
           htmlFor="independantModality"
@@ -135,6 +142,21 @@ function ReceiptForm({ onGenerate }: ReceiptFormPropsTypes) {
           className="cursor-pointer transform scale-150"
           style={{ width: '3rem', padding: 0 }}
           {...register('independantModality')}
+        />
+      </div>
+
+      <div className="flex flex-row-reverse justify-end items-center gap-2">
+        <label
+          htmlFor="independantPricePerHour"
+        >
+          ¿Precio por hora independiente?
+        </label>
+        <input
+          type="checkbox"
+          id="independantPricePerHour"
+          className="cursor-pointer transform scale-150"
+          style={{ width: '3rem', padding: 0 }}
+          {...register('independantPricePerHour')}
         />
       </div>
 
