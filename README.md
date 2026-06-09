@@ -1,69 +1,75 @@
-# 🦉 Profesor Búho - Generador de Recibos
+# 🦉 Profesor Búho - Receipt Generator / Generador de Recibos
 
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
+**Profesor Búho Receipts** is a web tool designed for the Profesor Búho project to generate fast, professional, and visually appealing payment receipts for students.
+
 **Profesor Búho Recibos** es una herramienta web diseñada como parte del proyecto Profesor Búho para generar comprobantes de pago rápidos, profesionales y estéticos para sus alumnos.
 
-🚀 **Enlace:** [profesor-buho-receipts.vercel.app](https://profesor-buho-receipts.vercel.app/)
+🚀 **Link / Enlace:** [profesor-buho-receipts.vercel.app](https://profesor-buho-receipts.vercel.app/)
 
 ---
 
-## ✨ Características
+## ✨ Features / Características
 
-- **Formulario Dinámico:** Agrega múltiples clases o fechas en un solo recibo con cálculos automáticos de subtotal y total.
-- **Vista Previa en Tiempo Real:** Visualiza cómo quedará el recibo mientras escribes mediante el uso de context providers.
-- **Exportación de Imagen:** Genera el recibo como imagen PNG, garantizando siempre un fondo claro para legibilidad, dando la posibilidad de descargarlo o compartirlo.
-- **Diseño Responsive:** Interfaz optimizada para dispositivos móviles y escritorio.
-- **Tema Dual:** Soporte nativo para modo claro y modo oscuro.
-- **Validación Estricta:** Manejo de formularios con `React Hook Form` y validación de esquemas con `Zod`.
+- **Dynamic Form / Formulario Dinámico:** Add multiple classes or dates on a single receipt with automatic subtotal and total calculations.
+- **Live Preview / Vista Previa en Tiempo Real:** See the receipt update while you type using context providers.
+- **Image Export / Exportación de Imagen:** Generate the receipt as a PNG image with a clear background for readability, ready to download or share.
+- **Responsive Design / Diseño Responsive:** Interface optimized for mobile and desktop.
+- **Theme Support / Tema Dual:** Native support for light and dark mode.
+- **Strict Validation / Validación Estricta:** Form handling with `React Hook Form` and schema validation using `Zod`.
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack / Stack Tecnológico
 
 - **Frontend:** React 18 + Vite.
-- **Estilos:** Tailwind CSS.
-- **Gestión de Formularios:** React Hook Form + Zod.
-- **Captura de Imagen:** `html-to-image`.
-- **Despliegue:** Vercel.
+- **Styles:** Tailwind CSS.
+- **Form Management / Gestión de Formularios:** React Hook Form + Zod.
+- **Image Capture / Captura de Imagen:** `html-to-image`.
+- **Deployment / Despliegue:** Vercel.
 
-## 🚀 Instalación Local
+## 🚀 Local Setup / Instalación Local
 
-1. ### Clona el repositorio:
+1. ### Clone the repository / Clona el repositorio:
    ```bash
-   git clone [https://github.com/bryanquille/profesor-buho-receipts.git](https://github.com/bryanquille/profesor-buho-receipts.git)
+   git clone https://github.com/bryanquille/profesor-buho-receipts.git
+   ```
 
-2. ### Entra al directorio:
-
+2. ### Enter the directory / Entra al directorio:
    ```bash
    cd profesor-buho-receipts
    ```
 
-3. ### Instala las dependencias:
-
+3. ### Install dependencies / Instala las dependencias:
    ```bash
    npm install
    ```
 
-4. ### Inicia el servidor de desarrollo:
-
+4. ### Start the development server / Inicia el servidor de desarrollo:
    ```bash
    npm run dev
    ```
 
-## 📋 Próximos Pasos (Roadmap)
+## 📋 Roadmap / Próximos Pasos
 
-- [ ] Persistencia de Datos: Integración con Supabase (PostgreSQL) para guardar historial de recibos.
+- [ ] Data persistence: Supabase (PostgreSQL) integration to save receipt history.
+- [ ] Persistencia de datos: Integración con Supabase (PostgreSQL) para guardar historial de recibos.
 
+- [ ] Authentication: User system for teachers to manage their own students privately.
 - [ ] Autenticación: Sistema de usuarios para que cada profesor gestione sus propios clientes de forma privada.
 
-- [ ] Búsqueda y Filtros: Filtrar recibos generados por fecha o nombre de alumno.
+- [ ] Search and filters: Filter generated receipts by date or student name.
+- [ ] Búsqueda y filtros: Filtrar recibos generados por fecha o nombre de alumno.
 
-- [ ] PDF Export: Implementación de descarga en formato PDF.
+- [ ] PDF export: Add PDF download support.
+- [ ] Exportación a PDF: Implementación de descarga en formato PDF.
 
-## 📄 Descargo de Responsabilidad
+## 📄 Disclaimer / Descargo de Responsabilidad
+
+This project is a receipt generation tool for informational use only. It does not have tax validity and does not constitute a legal invoice in jurisdictions that require government-authorized fiscal receipts.
 
 Este proyecto es una herramienta de generación de recibos informativos. No tiene validez tributaria ni constituye una factura legal en jurisdicciones que requieran comprobantes fiscales autorizados por entidades gubernamentales.
 
-Hecho con ❤️ por Bryan Quille
+Made with ❤️ by Bryan Quille / Hecho con ❤️ por Bryan Quille
