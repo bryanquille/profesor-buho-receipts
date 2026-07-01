@@ -50,7 +50,7 @@ function DynamicInputs() {
       if (hours > 0 && price > 0) {
         const calculatedSubtotal = hours * price
         if (item.subtotal !== calculatedSubtotal) {
-          setValue(`items.${index}.subtotal`, calculatedSubtotal)
+          setValue(`items.${index}.subtotal`, calculatedSubtotal.toFixed(2))
         }
       }
     })
